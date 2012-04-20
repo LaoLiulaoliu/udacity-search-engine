@@ -1,0 +1,13 @@
+This search engine is separated into two parts.
+1. engine_spider.py
+2. engine_search.py
+The reason is we can crawl new things to enlarge the data, and search word without a crawling process.
+
+
+engine_spider:
+    Crawling web pages using thread pool model. At the same time, indexing all the words with urls. After crawling and indexing, based on all pages' outgoing link, compute every page's ranking.
+    Dump the ranking and indexing variables into the hard disk.
+
+engine_search:
+    Load ranking and indexing variables from hard disk.
+    Search the words input from the console.Sorting the result using quick sort.
