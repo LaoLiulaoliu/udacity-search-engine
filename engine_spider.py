@@ -13,7 +13,7 @@ import log
 import tools
 
 seeds = ['http://www.wikipedia.org/', 'http://www.yahoo.com']
-#seeds = ['http://www.udacity.com/cs101x/index.html']
+seeds = ['http://www.udacity.com/cs101x/index.html']
 
 if __name__ == '__main__':
     # get configuration

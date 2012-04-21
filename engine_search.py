@@ -13,18 +13,8 @@ import log
 import tools
 import porter_stemming
 import search
+import cache
 
-class cache(object):
-    """ A key, value cache"""
-    def __init__(self):
-        self.caching = {}
-
-    def cached_execution(self, code):
-        if code in self.caching:
-            return self.caching[code]
-        result = eval(code)
-        self.caching[code] = result
-        return result
 
 if __name__ == '__main__':
     # get configuration
@@ -54,11 +44,13 @@ if __name__ == '__main__':
     # stemming
     pstem = porter_stemming.PorterStemmer()
     # cache
-    cache_stem = cache()
-    cache_search = cache()
+    cache_stem = cache.cache()
+    cache_search = cache.cache()
 
     # for search cycle
     while True:
+        cache_stem.pop_onethird()
+        cache_search.pop_onethird()
         try:
             words = input('Please input words to search: ')
         except EOFError:
@@ -69,10 +61,17 @@ if __name__ == '__main__':
             logger.debug(sys.exc_info()[:2])
             exit(0)
         logger.info('search: %s', words)
-#        query = cache_stem.cached_execution( 'pstem.controling(words)' ) # a words list
-#        result = cache_stem.cached_execution( 'search.multi_search(index, ranks, query)' )
-        query = pstem.controling(words) # a words list
-        result = search.multi_search(index, ranks, query)
+        if cache_stem.have_key(str(words)):
+            query = cache_stem.get_by_key(str(words))
+        else:
+            query = pstem.controling(words) # a words list
+            cache_stem.add_kv(str(words), query)
+        if cache_search.have_key(str(query)): # unhashable type: list
+            result = cache_search.get_by_key(str(query))
+        else:
+            result = search.multi_search(index, ranks, query)
+            cache_search.add_kv(str(query), result)
+
         if not result:
             print('Sorry, the engine can not find what you want.')
         for item in result: print(item)
