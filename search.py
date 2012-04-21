@@ -10,6 +10,7 @@
 
 
 def swap(url_rank, left, right):
+    if left == right: return
     tmp = url_rank[left]
     url_rank[left] = url_rank[right]
     url_rank[right] = tmp
@@ -18,19 +19,20 @@ def quicksort(url_rank, left, right):
     if left >= right: return
     i = left
     j = right
-    left += 1
-    while (left < right):
-        while (url_rank[left][1] < url_rank[i][1]):
-            left += 1
-            if left > right: break # avoid left exceed the right boundary
-        while (url_rank[right][1] > url_rank[i][1]):
-            right -= 1
-        if (left < right): # left > i; right < i;
-            swap(url_rank, left, right)
-    swap(url_rank, i, right)
-    quicksort(url_rank, i, right-1)
-    quicksort(url_rank, right+1, j)
-        
+    # i += 1 bug fixed
+    while (i < j):
+        while (url_rank[i][1] <= url_rank[left][1]):
+            i += 1
+            if i > j: break # avoid left exceed the right boundary
+        while (url_rank[j][1] >= url_rank[left][1]):
+            j -= 1
+            if j < i: break
+        if (i < j): # i > left; j < left;
+            swap(url_rank, i, j)
+    swap(url_rank, left, j)
+    quicksort(url_rank, left, j-1)
+    quicksort(url_rank, j+1, right)
+
 
 def ordered_search(index, ranks, keyword):
     if keyword not in index:

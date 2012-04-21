@@ -16,3 +16,4 @@ engine_search:
     Search the words or a sentence.
     Inputing words from the console, then stemming and searching.
     Showing the result in smart way.(quick sort and count the NO. of different word in one url)
+    Caching the query result.
