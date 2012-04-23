@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# encoding: utf-8
+# -*- coding: utf-8 -*-
 
 # modified by Yuande <miraclecome (at) gmail.com>, Apr 20, 2012
 # This code is under Creative Commons CC BY-NC-SA license
@@ -364,5 +364,3 @@ class PorterStemmer(object):
             if word: words.append( self.stem(word, 0, len(word)-1) ) # last word
         return words
 
-if __name__ == '__main__':
-    pass

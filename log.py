@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# encoding: utf-8
+# -*- coding: utf-8 -*-
 
 # Author: Yuande <miraclecome (at) gmail.com>
 # This code is under Creative Commons CC BY-NC-SA license
@@ -32,10 +32,10 @@ def log_print(msg, logger=None, level=logging.ERROR):
 
 
 def log_traceback(logger=None, msg=None):
-    """
+    '''
     log exception traceback to logger
     a litter difference from log.exception
-    """
+    '''
     import sys, traceback
 
     if msg != None:

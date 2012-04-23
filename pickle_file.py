@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# encoding: utf-8
+# -*- coding: utf-8 -*-
 
 # Author: Yuande <miraclecome (at) gmail.com>
 # This code is under Creative Commons CC BY-NC-SA license
@@ -11,7 +11,7 @@ import pickle
 import tools
 
 class pickle_file(object):
-    """dump and load pickle file"""
+    ''' dump and load pickle file. '''
 
     def __init__(self):
         pass
@@ -20,6 +20,7 @@ class pickle_file(object):
         return tools.check_dir(directory)
 
     def dump_file(self, variable, directory, file_name):
+        ''' dump variable to file. '''
         full_name = os.path.join(directory, file_name)
         if os.path.isfile(full_name):
             os.rename(full_name, full_name + '_bak')
@@ -32,6 +33,7 @@ class pickle_file(object):
         return True
 
     def load_file(self, directory, file_name):
+        ''' load dump file to variables. '''
         full_name = os.path.join(directory, file_name)
         open_file = full_name + '_bak'
         if not os.path.isfile(open_file):

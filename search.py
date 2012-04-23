@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# encoding: utf-8
+# -*- coding: utf-8 -*-
 
 # Author: Yuande <miraclecome (at) gmail.com>
 # This code is under Creative Commons CC BY-NC-SA license
@@ -35,6 +35,7 @@ def quicksort(url_rank, left, right):
 
 
 def ordered_search(index, ranks, keyword):
+    ''' Search one word, result is sorted by rank. '''
     if keyword not in index:
         return []
     result = []
@@ -45,6 +46,7 @@ def ordered_search(index, ranks, keyword):
 
 
 def lucky_search(index, ranks, keyword):
+    ''' Search one word, result is the highest rank url. '''
     if keyword not in index:
         return []
     high = 0
@@ -70,12 +72,14 @@ def lack_or_notcontinuation(union):
     quicksort(result, 0, len(result)-1)
     return [result[i][0] for i in range(len(result)-1, -1, -1)]
 
-# query [word1, word2, word3, ...]
-# when len(query) >= 2,
-# if any word in 'query' not in 'index', called 'lake'. travel all url, count the NO. of different word in this url
-# else if 'query' not continuous in all page, called 'not continuation'. travel all url, count the NO. of different word in this url
-# else if 'query' continuous in some page.
 def multi_search(index, ranks, query):
+    ''' query [word1, word2, word3, ...]
+        when len(query) >= 2,
+        if any word in 'query' not in 'index', called 'lake'. travel all url, count the NO. of different word in this url
+        else if 'query' not continuous in all page, called 'not continuation'. travel all url, count the NO. of different word in this url
+        else if 'query' continuous in some page.
+    '''
+
     length = len(query)
     if length == 0:
         return []

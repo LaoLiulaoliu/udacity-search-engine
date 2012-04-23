@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# encoding: utf-8
+# -*- coding: utf-8 -*-
 
 # Author: Yuande <miraclecome (at) gmail.com>
 # This code is under Creative Commons CC BY-NC-SA license
@@ -55,7 +55,7 @@ class thread_pool(object):
             w.start()
 
     def wait_completion(self):
-        # waiting for each worker to terminate
+        ''' waiting for each worker to terminate. '''
         while len(self.workers):
             worker_obj = self.workers.pop()
             worker_obj.join() # blocking, waiting for the all complete.

@@ -2,13 +2,16 @@
 # -*- coding: utf-8 -*-
 
 # Author: Yuande <miraclecome (at) gmail.com>
+# This code is under Creative Commons CC BY-NC-SA license
+# http://creativecommons.org/licenses/by-nc-sa/3.0/
 
 import time
 
 class cache(object):
-    """ A key, value cache"""
+    ''' A key, value cache. '''
+
     def __init__(self):
-        self.N = 20000 # tested good number for double core, 1.75HZ CPU
+        self.N = 100000 # tested fast number
         self.caching = {}
 
     def have_key(self, key):
@@ -42,14 +45,15 @@ class cache(object):
 
 
 class cache_test(object):
+    ''' Both insert and popitem have the same speed. '''
+
     def __init__(self, N):
         self.N = N
         self.cache_dict = {}
 
     def insert_dict(self):
         for i in range(self.N):
-            for j in range(self.N):
-                self.cache_dict[i] = i + j
+            self.cache_dict[i] = i
 
     def have_key(self):
         num = self.N // 3
@@ -64,7 +68,7 @@ class cache_test(object):
 
 if __name__ == '__main__':
 
-    N = 20000 # 146s to insert_dict(), double this then costing time will grow exponentially
+    N = 1000000 # 0.67s to insert new items for 1.75HZ CPU
     cc = cache()
     test_cc = cache_test(N)
     result, cost = cc.time_execution('test_cc.insert_dict()')

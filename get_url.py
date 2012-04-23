@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# encoding: utf-8
+# -*- coding: utf-8 -*-
 
 # Author: Yuande <miraclecome (at) gmail.com>
 # This code is under Creative Commons CC BY-NC-SA license
@@ -11,8 +11,9 @@ import log
 
 class get_url(object):
     def __init__(self, logger):
-        """ self.http = httplib2.Http() 
-            multi-thread use same httplib2.Http() object cause socket error"""
+        ''' self.http = httplib2.Http() 
+            multi-thread use same httplib2.Http() object cause socket error
+        '''
         self.logger = logger
 
     def get(self, url):

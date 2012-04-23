@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# encoding: utf-8
+# -*- coding: utf-8 -*-
 
 # Author: Yuande <miraclecome (at) gmail.com>
 # This code is under Creative Commons CC BY-NC-SA license
@@ -16,7 +16,9 @@ import search
 
     
 class crawler(object):
-    """A simple web crawler."""
+    ''' A simple web crawler.
+        Using thread pool to do crawling and indexing.
+    '''
 
     def __init__(self, seeds, logger, thread_num=5, max_depth=9, ranks=None):
         self.init_seeds_num = len(seeds)
@@ -41,8 +43,10 @@ class crawler(object):
         self.logger.info('Finish crawling webpages.')
 
     def organize_graph_rank(self):
-        """Get the graph for ranking.
-           After run_crawl, this call can run once(because queue can get once)."""
+        ''' Get the graph for ranking.
+           After run_crawl, this call can run once(because queue can get once).
+        '''
+
         self.logger.info('Merge url graph.')
         graph = {}
         ret = self.threadpool.get_one_result()
@@ -137,6 +141,6 @@ class crawler(object):
 
 if __name__ == '__main__':
     seeds = ['http://www.google.com']
-    cr = crawler(seeds)
+    cr = crawler(seeds, None)
     content = cr.down_url.get(seeds[0])
     print( cr.get_all_links(seeds[0], content) )

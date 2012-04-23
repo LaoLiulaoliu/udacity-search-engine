@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# encoding: utf-8
+# -*- coding: utf-8 -*-
 
 # Author: Yuande <miraclecome (at) gmail.com>
 # This code is under Creative Commons CC BY-NC-SA license
@@ -17,8 +17,11 @@ class indexing(object):
         self.pstem = porter_stemming.PorterStemmer()
 
 
-    # one word appeared more than once in a url. If this word have different next word,we can distinguish them,else we mix them up(not record their exact position). 
     def add_to_index(self, keyword, nextword, url):
+        ''' One word appeared more than once in a url.
+            If this word have different next word,we can distinguish them,
+            else we mix them up(not record their exact position).
+        '''
         if keyword in self.index:
             if url in self.index[keyword]:
                 if nextword: self.index[keyword][url][nextword] = None # two adjacent words appear more than once in one url,no judge just assign
@@ -30,10 +33,11 @@ class indexing(object):
             else: self.index[keyword] = {url:{}}
 
 
-    # one word -> next word.
-    # When there is a multi-words search, we can search 'index' to find whether two words are next to each other in this url.
     # TODO: html parse 
     def add_page_to_index(self, url, content):
+        ''' one word -> next word.
+            When there is a multi-words search, we can search 'index' to find whether two words are next to each other in this url.
+        '''
         if not content: # len(words)-1 == -1 if content is empty
             return
         words = self.pstem.controling(content)
