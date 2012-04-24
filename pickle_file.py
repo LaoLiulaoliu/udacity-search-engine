@@ -28,7 +28,7 @@ class pickle_file(object):
             try:
                 pickle.dump(variable, f)
             except:
-                print(sys.exc_info[:2], variable, full_name)
+                log.log_traceback(msg='dump to ' + full_name + ' error:')
                 return False
         return True
 
@@ -46,6 +46,6 @@ class pickle_file(object):
             try:
                 variable = pickle.load(f)
             except:
-                print(sys.exc_info[:2], variable, full_name)
+                log.log_traceback(msg='load dump file from ' + open_file + ' error:')
                 return False
         return variable

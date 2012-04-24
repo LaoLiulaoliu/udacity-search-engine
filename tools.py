@@ -7,6 +7,7 @@
 
 import sys
 import os
+import log
 
 def check_dir(directory):
     ''' Check whether directory exist.
@@ -22,7 +23,7 @@ def check_dir(directory):
         try:
             os.makedirs(directory)
         except OSError:
-            print(sys.exc_info[:2], directory)
+            log.log_traceback(msg=directory)
             return False
     return True
 

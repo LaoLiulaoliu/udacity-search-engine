@@ -6,6 +6,7 @@
 # http://creativecommons.org/licenses/by-nc-sa/3.0/
 
 import configparser
+import log
 
 class confparse(object):
     ''' read configuration file. '''
@@ -15,8 +16,7 @@ class confparse(object):
             self.config = configparser.ConfigParser()
             self.config.read(file_path)
         except:
-            import sys
-            print(sys.exc_info()[:2])
+            log.log_traceback()
 
     def getall(self):
         conf = {}

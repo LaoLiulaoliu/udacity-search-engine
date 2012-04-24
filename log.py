@@ -48,5 +48,10 @@ def log_traceback(logger=None, msg=None):
         for eline in elines:
             log_print(eline.rstrip(), logger)
     
-    # log_print(lines[-1], logger)
+    log_print(lines[-1], logger)
 
+if __name__ == '__main__':
+    try:
+        1/0
+    except:
+        log_traceback()

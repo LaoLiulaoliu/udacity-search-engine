@@ -32,19 +32,17 @@ class get_url(object):
             #    content = ''.join( map(chr, filter(None, content)) )
             return content
         except UnicodeDecodeError:
-            log.log_traceback(self.logger)
             self.logger.debug(response)
-            self.logger.debug(sys.exc_info()[:2])
+            log.log_traceback(self.logger)
         except:
             log.log_traceback(self.logger)
-            self.logger.debug(sys.exc_info()[:2])
             return
 
 
 
 if __name__ == '__main__':
     url = ['http://djt.qq.com/api.php', 'http://www.youku.com/']
-    obj = get_url()
+    obj = get_url(None)
     for u in url:
         content = obj.get(u)
         if content: print(content)

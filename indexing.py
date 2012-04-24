@@ -37,6 +37,7 @@ class indexing(object):
     def add_page_to_index(self, url, content):
         ''' one word -> next word.
             When there is a multi-words search, we can search 'index' to find whether two words are next to each other in this url.
+            Or (word, position++) tuple to record the word position.
         '''
         if not content: # len(words)-1 == -1 if content is empty
             return

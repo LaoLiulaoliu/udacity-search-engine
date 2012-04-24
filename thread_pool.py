@@ -33,9 +33,8 @@ class worker(threading.Thread):
             except queue.Empty:
                 break
             except:
-                import sys
-                log.log_traceback()
-                print('worker[%d]' % self.id, sys.exc_info()[:2])
+                message = 'worker[{0}]'.format(self.id)
+                log.log_traceback(msg=message)
 
 class thread_pool(object):
     def __init__(self, num_workers=10, timeout=1):

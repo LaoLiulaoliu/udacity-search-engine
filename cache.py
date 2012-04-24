@@ -23,8 +23,10 @@ class cache(object):
     def add_kv(self, key, val):
         self.caching[key] = val
 
-    # keep the size of self.caching small, prevent the performance problem
     def pop_onethird(self):
+        ''' keep the size of self.caching small
+            prevent the performance problem
+        '''
         if len(self.caching) >= self.N:
             for i in range(self.N // 3):
                 self.caching.popitem()

@@ -58,7 +58,6 @@ if __name__ == '__main__':
             exit(0)
         except:
             log.log_traceback(logger)
-            logger.debug(sys.exc_info()[:2])
             exit(0)
         logger.info('search: %s', words)
         if cache_stem.have_key(str(words)):
