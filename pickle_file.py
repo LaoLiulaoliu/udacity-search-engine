@@ -6,9 +6,9 @@
 # http://creativecommons.org/licenses/by-nc-sa/3.0/
 
 import os
-import sys
 import pickle
 import tools
+import log
 
 class pickle_file(object):
     ''' dump and load pickle file. '''
