@@ -6,7 +6,7 @@
 # http://creativecommons.org/licenses/by-nc-sa/3.0/
 
 import httplib2
-import sys
+import re
 import log
 
 class get_url(object):
@@ -15,29 +15,31 @@ class get_url(object):
             multi-thread use same httplib2.Http() object cause socket error
         '''
         self.logger = logger
+        self.pat = re.compile(b'<(meta.*charset=|\?xml.*encoding=")(\w+-?\w*-?\w*)"', re.IGNORECASE)
 
     def get(self, url):
         try:
             http = httplib2.Http()
             response, content = http.request(url, 'GET')
-            if response['status'] != '200':
-                return
-            encode = 'utf-8'
+            if response['status'] != '200': return
+            if content == b'Access Denied': return
+
+            encode = ''
             for item in response['content-type'].lower().split(';'):
                 if 'charset' in item:
                     encode = item.split('=')[1]
-            if content == b'Access Denied': return
-            content = content.decode(encode)
-            # if type(content) == type(b''): # perform bad in gbk
-            #    content = ''.join( map(chr, filter(None, content)) )
-            return content
+            if not encode:
+                re_sh = self.pat.search(content)
+                if re_sh:
+                    encode = re_sh.group(2).decode()
+                    print('\n--group2: ', re_sh.group(2), '\t', re_sh.group(0))
+            if not encode: encode = 'utf-8'
+            return content.decode(encode)
         except UnicodeDecodeError:
             self.logger.debug(response)
             log.log_traceback(self.logger)
         except:
             log.log_traceback(self.logger)
-            return
-
 
 
 if __name__ == '__main__':

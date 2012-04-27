@@ -55,7 +55,7 @@ class thread_pool(object):
 
     def wait_completion(self):
         ''' waiting for each worker to terminate. '''
-        while len(self.workers):
+        while self.workers:
             worker_obj = self.workers.pop()
             worker_obj.join() # blocking, waiting for the all complete.
             if worker_obj.is_alive() and not self.work_queue.Empty:
