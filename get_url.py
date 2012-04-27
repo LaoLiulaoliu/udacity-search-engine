@@ -15,7 +15,7 @@ class get_url(object):
             multi-thread use same httplib2.Http() object cause socket error
         '''
         self.logger = logger
-        self.pat = re.compile(b'<(meta.*charset="?|\?xml.*encoding=")(\w+-?\w*-?\w*)"', re.IGNORECASE)
+        self.pat = re.compile(b'<(meta.*charset="?\'?|\?xml.*encoding=("|\'))(\w+-?\w*-?\w*)("|\')', re.IGNORECASE)
 
     def get(self, url):
         try:
@@ -31,8 +31,8 @@ class get_url(object):
             if not encode:
                 re_sh = self.pat.search(content)
                 if re_sh:
-                    encode = re_sh.group(2).decode()
-                    print('\n--group2: ', re_sh.group(2), '\t', re_sh.group(0))
+                    encode = re_sh.group(3).decode()
+                    # print('\n--group3: ', re_sh.group(3), '\t', re_sh.group(0))
             if not encode: encode = 'utf-8'
             return content.decode(encode)
         except UnicodeDecodeError:
