@@ -15,7 +15,7 @@ class get_url(object):
             multi-thread use same httplib2.Http() object cause socket error
         '''
         self.logger = logger
-        self.pat = re.compile(b'<(meta.*charset=|\?xml.*encoding=")(\w+-?\w*-?\w*)"', re.IGNORECASE)
+        self.pat = re.compile(b'<(meta.*charset="|\?xml.*encoding=")(\w+-?\w*-?\w*)"', re.IGNORECASE)
 
     def get(self, url):
         try:
