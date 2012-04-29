@@ -32,11 +32,10 @@ class get_url(object):
                 re_sh = self.pat.search(content)
                 if re_sh:
                     encode = re_sh.group(3).decode()
-                    # print('\n--group3: ', re_sh.group(3), '\t', re_sh.group(0))
             if not encode: encode = 'utf-8'
-            return content.decode(encode)
+            return content.decode(encode, 'ignore')
         except UnicodeDecodeError:
-            self.logger.debug(response)
+            self.logger.debug('get(): ', url, response)
             log.log_traceback(self.logger)
         except:
             log.log_traceback(self.logger)

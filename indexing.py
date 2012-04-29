@@ -9,6 +9,7 @@
 import queue
 import threading
 import porter_stemming
+import html_text
 
 class indexing(object):
     def __init__(self):
@@ -41,15 +42,19 @@ class indexing(object):
         '''
         if not content: # len(words)-1 == -1 if content is empty
             return
-        words = self.pstem.controling(content)
+
+        # processed_content data structer: ([all words in one sentence],[], ...)
+        processed_content = (self.pstem.controling(sentence) for sentence in html_text.html_text(content))
+
 #        punctuation = ['"', ',', '.', '!', '?', '-', '(', ')', ':', '<', '>', '/', '\\']
 #        for sign in punctuation:
 #            content = content.replace(sign, ' ')
 #        words = content.split()
         # thread_pool to deal with it. self.index need a lock
         self.index_lock.acquire()
-        for i in range(len(words)-1):
-            self.add_to_index(words[i], words[i+1], url)
-        self.add_to_index(words[len(words)-1], '', url)
+        for words in processed_content:
+            for i in range(len(words)-1):
+                self.add_to_index(words[i], words[i+1], url)
+            self.add_to_index(words[len(words)-1], '', url)
         self.index_lock.release()
 
