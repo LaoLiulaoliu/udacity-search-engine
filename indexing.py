@@ -53,6 +53,7 @@ class indexing(object):
         # thread_pool to deal with it. self.index need a lock
         self.index_lock.acquire()
         for words in processed_content:
+            if not words: continue
             for i in range(len(words)-1):
                 self.add_to_index(words[i], words[i+1], url)
             self.add_to_index(words[len(words)-1], '', url)

@@ -20,7 +20,7 @@ class crawler(object):
         Using thread pool to do crawling and indexing.
     '''
 
-    def __init__(self, seeds, logger, thread_num=5, max_depth=9, ranks=None):
+    def __init__(self, seeds, logger, thread_num=5, max_depth=9, ranks=None, index=None):
         self.init_seeds_num = len(seeds)
         self.tocrawl = {}
         for seed in seeds:
@@ -31,6 +31,7 @@ class crawler(object):
         self.ranks = ranks
         self.down_url = get_url.get_url(logger)
         self.indexing = indexing.indexing()
+        if index: self.indexing.index.update(index)
         self.threadpool = thread_pool.thread_pool(thread_num)
         self.lock = threading.Lock()
 
