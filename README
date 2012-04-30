@@ -1,5 +1,7 @@
 udacity-search-engine
+
 ##################################
+
 
 This search engine is separated into two parts.
 1. engine_spider.py
@@ -8,8 +10,11 @@ We can crawl new things to enlarge the data, and search word without a crawling 
 
 
 engine_spider:
-    Crawling web pages using thread pool model. At the same time, indexing all the words with crawled page. After crawling and indexing, based on all pages' outgoing link, compute every page's ranking.
+    Crawling web pages using thread pool model. At the same time, indexing all the words with crawled page(word stemming in it). After crawling and indexing, based on all pages' outgoing link, compute every page's ranking.
     Dump the ranking and indexing variables into the hard disk.
+    Load the ranking and indexing variables from old data on hard disk.
+    Whenever need to stop the spider,use Ctrl+C signal, program will dump the variables from memory to disk automatically.
+    Auto detecte the webpages' encoding, and decode them.
 
 engine_search:
     Load ranking and indexing variables from hard disk.
