@@ -37,7 +37,7 @@ class worker(threading.Thread):
                 log.log_traceback(msg=message)
 
 class thread_pool(object):
-    def __init__(self, num_workers=10, timeout=1):
+    def __init__(self, num_workers=10, timeout=10):
         self.work_queue = queue.Queue()
         self.result_queue = queue.Queue()
         self.workers = []
