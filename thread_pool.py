@@ -29,7 +29,8 @@ class worker(threading.Thread):
                 result = callable(*args, **kwargs)
                 if result: self.result_queue.put(result) # only add url_graph result, filter indexing result
                 # print('worker[%d]: %s' % (self.id, str(result)))
-                # no task_done() means can't be join() now,run the next cycle
+                # formally need task_done(), but we can omit it here.
+                self.work_queue.task_done()
             except queue.Empty:
                 break
             except:

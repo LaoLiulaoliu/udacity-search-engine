@@ -19,7 +19,7 @@ class get_url(object):
 
     def get(self, url):
         try:
-            http = httplib2.Http()
+            http = httplib2.Http(timeout=10)
             response, content = http.request(url, 'GET')
             if response['status'] != '200': return
             if content == b'Access Denied': return
