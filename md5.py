@@ -8,7 +8,8 @@
 import hashlib
 
 def md5Checksum(file_name, exclude_line='', include_line=''):
-    ''' Compute md5 hash of the specified file. '''
+    ''' Compute md5 hash of the specified file.
+    '''
     m = hashlib.md5()
     try:
         fd = open(file_name, 'rb')
@@ -25,21 +26,24 @@ def md5Checksum(file_name, exclude_line='', include_line=''):
     if include_line: m.update(include_line)
     return m.hexdigest()
 
+
 def md5_bytes(file_name, block_size=8192):
     ''' Compute md5 hash of a file.
         return result in bytes.
     '''
-    with open(file_name, 'rb') as a_file:
+    with open(file_name, 'rb') as fd:
         m = hashlib.md5()
         while True:
-            data = a_file.read(block_size)
+            data = fd.read(block_size)
             if not data:
                 break
             m.update(data)
     return m.digest()
 
+
 def md5_str(buf):
-    ''' Compute md5 hash of a string. '''
+    ''' Compute md5 hash of a string.
+    '''
     m = hashlib.md5(buf.encode())
     return m.hexdigest()
 
@@ -53,3 +57,4 @@ if __name__ == '__main__':
     y = md5_bytes(sys.argv[1])
     if x == y:
         print(type(x), x)
+

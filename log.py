@@ -15,7 +15,7 @@ def init(log_name, log_file, level=logging.DEBUG, size=1024*1024, count=10):
 
     formatter = logging.Formatter("%(levelname)s [%(asctime)s]: %(message)s")
 
-    handler = logging.handlers.RotatingFileHandler(log_file, maxBytes=size, backupCount = count)
+    handler = logging.handlers.RotatingFileHandler(log_file, maxBytes=size, backupCount=count)
     handler.setFormatter(formatter)
 
     logger.addHandler(handler)
@@ -50,8 +50,10 @@ def log_traceback(logger=None, msg=None):
     
     log_print(lines[-1], logger)
 
+
 if __name__ == '__main__':
     try:
         1/0
     except:
         log_traceback()
+
