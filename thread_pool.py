@@ -70,12 +70,17 @@ class thread_pool(object):
             return self.result_queue.get(*args, **kwargs)
         return None
 
+    def ssize(self):
+        return len(self.workers)
+
+
 if __name__ == '__main__':
     import md5
     obj = thread_pool(3)
     for i in range(10):
         obj.add_job(md5.md5_str, 'who are you')
     obj.start()
+    print(obj.ssize())
     for i in range(10):
         obj.add_job(md5.md5_str, 'where are we')
     obj.wait_completion()
@@ -83,3 +88,5 @@ if __name__ == '__main__':
     while ret:
         print(ret)
         ret = obj.get_one_result()
+
+    print(obj.ssize())
