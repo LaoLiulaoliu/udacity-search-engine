@@ -14,7 +14,7 @@ def swap(url_rank, left, right):
     tmp = url_rank[left]
     url_rank[left] = url_rank[right]
     url_rank[right] = tmp
-    
+
 def quicksort(url_rank, left, right):
     if left >= right: return
     i = left
@@ -26,7 +26,7 @@ def quicksort(url_rank, left, right):
             if i > j: break # avoid left exceed the right boundary
         while (url_rank[j][1] >= url_rank[left][1]):
             j -= 1
-            if j < i: break
+            if i > j: break
         if (i < j): # i > left; j < left;
             swap(url_rank, i, j)
     swap(url_rank, left, j)
@@ -75,7 +75,7 @@ def lack_or_notcontinuation(union):
 def multi_search(index, ranks, query):
     ''' query [word1, word2, word3, ...]
         when len(query) >= 2,
-        if any word in 'query' not in 'index', called 'lake'. travel all url, count the NO. of different word in this url
+        if any word in 'query' not in 'index', called 'lack'. travel all url, count the NO. of different word in this url
         else if 'query' not continuous in all page, called 'not continuation'. travel all url, count the NO. of different word in this url
         else if 'query' continuous in some page.
     '''
@@ -104,6 +104,7 @@ def multi_search(index, ranks, query):
     else:
         url_gather = union[query[0]] # {url: {next_word1: None, next_word2: None, ...}, url2:{next_word1: None, next_word2: None,...}}
         not_continuation = False
+        # travel all words, eliminate url do not have continuous words
         for i in range(len(query)-1):
             middle = {}
             for url, word_dict in url_gather.items(): # a[url, word]
@@ -117,7 +118,7 @@ def multi_search(index, ranks, query):
         if not_continuation:
             return lack_or_notcontinuation(union)
 
-        # sort urls
+        # sort urls, add urls which not contain all words
         result = []
         for url in url_gather: # every word in the last gather's urls
             result.append( (url, ranks[url]) )

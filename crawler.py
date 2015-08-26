@@ -98,7 +98,7 @@ class crawler(object):
         links = []
         while True:
             url, endpos = self.get_next_target(page)
-            if endpos != 0:
+            if endpos != None:
                 if url:
                     if not url.startswith('http://'):  # relative url, like '/fiEfds', 'ccepI', '//en.wikipedia.org/'
                         url = urllib.parse.urljoin(pageurl, url)
@@ -113,7 +113,7 @@ class crawler(object):
         quote = ['\'', '"']     # ' and " 2 kinds of quote
         start_link = page.find(find_str)
         if start_link == -1: 
-            return None, 0
+            return None, None
         start_quote = start_link + len(find_str)
         if page[start_quote] == quote[0]:
             end_quote = page.find(quote[0], start_quote + 1)

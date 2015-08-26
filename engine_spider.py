@@ -58,8 +58,7 @@ if __name__ == '__main__':
     ranks = pkfile.load_file(g_directory, 'ranks_pickle')
     index = pkfile.load_file(g_directory, 'index_pickle')
     if ranks == False or index == False:
-        ranks = None
-        index = None
+        ranks = index = None
 
     # crawling the web pages
     g_crawl = crawler.crawler(seeds, logger, conf['number_of_threads'], conf['crawl_depth'], ranks, index)
